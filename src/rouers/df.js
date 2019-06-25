@@ -7,7 +7,7 @@ const dfRouter = new Router({
 })
 
 dfRouter.get('/', async (ctx, next) => {
-  const projectId = 'chatbox-1988'
+  const projectId = 'littel-ree'
   // A unique identifier for the given session
   const sessionId = uuid.v4();
 
