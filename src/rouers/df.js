@@ -11,9 +11,14 @@ dfRouter.get('/', async (ctx, next) => {
   // A unique identifier for the given session
   const sessionId = uuid.v4();
 
-  // Create a new session
-  const sessionClient = new dialogflow.SessionsClient();
-  const sessionPath = sessionClient.sessionPath(projectId, sessionId);
+  let sessionPath = ctx.request.query.sessionPath
+  let text = ctx.request.query.text
+  if (!sessionPath) {
+    // Create a new session
+    const sessionClient = new dialogflow.SessionsClient();
+    sessionPath = sessionClient.sessionPath(projectId, sessionId);
+  }
+
 
   // The text query request.
   const request = {
@@ -21,14 +26,14 @@ dfRouter.get('/', async (ctx, next) => {
     queryInput: {
       text: {
         // The query to send to the dialogflow agent
-        text: '你好',
+        text,
         // The language used by the client (en-US)
         languageCode: 'zh-CN',
       },
     },
   };
 
-  // Send request and log result
+  // Send request and log result  
   const responses = await sessionClient.detectIntent(request);
   console.log('Detected intent');
   const result = responses[0].queryResult;
@@ -36,9 +41,18 @@ dfRouter.get('/', async (ctx, next) => {
   console.log(`  Response: ${result.fulfillmentText}`);
   if (result.intent) {
     console.log(`  Intent: ${result.intent.displayName}`);
+    ctx.body = {
+      fulfillmentText: result.fulfillmentText,
+      sessionPath: sessionPath
+    }
   } else {
     console.log(`  No intent matched.`);
+    ctx.body = {
+      fulfillmentText: '我不知所措',
+      sessionPath: sessionPath
+    }
   }
+
 })
 
 module.exports = dfRouter
