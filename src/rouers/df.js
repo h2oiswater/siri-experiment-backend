@@ -13,9 +13,10 @@ dfRouter.get('/', async (ctx, next) => {
 
   let sessionPath = ctx.request.query.sessionPath
   let text = ctx.request.query.text
+
+  const sessionClient = new dialogflow.SessionsClient();
   if (!sessionPath) {
     // Create a new session
-    const sessionClient = new dialogflow.SessionsClient();
     sessionPath = sessionClient.sessionPath(projectId, sessionId);
   }
 
