@@ -6,6 +6,10 @@ const dfRouter = new Router({
   prefix: '/df'
 })
 
+dfRouter.post('/webhook', (ctx, next) => {
+  ctx.body = ctx.request
+})
+
 dfRouter.get('/', async (ctx, next) => {
   const projectId = 'littel-ree'
   // A unique identifier for the given session
