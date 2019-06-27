@@ -7,8 +7,8 @@ const dfRouter = new Router({
 })
 
 dfRouter.post('/webhook', (ctx, next) => {
-  console.log(ctx.request)
-  ctx.body = ctx.request
+  console.log(ctx.request.body)
+  ctx.body = ctx.request.body
 })
 
 dfRouter.get('/', async (ctx, next) => {
