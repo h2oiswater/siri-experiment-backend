@@ -4,16 +4,18 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node ./app.js",
+    "start": "nodemon ./app.js",
     "dev": "nodemon ./app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Nova",
   "license": "ISC",
   "dependencies": {
+    "baidu-aip-sdk": "^2.4.4",
     "dialogflow": "^0.10.1",
+    "fluent-ffmpeg": "^2.1.2",
     "koa": "^2.7.0",
-    "koa-bodyparser": "^4.2.1",
+    "koa-body": "^4.1.1",
     "koa-router": "^7.4.0",
     "uuid": "^3.3.2"
   }
